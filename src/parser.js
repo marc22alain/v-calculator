@@ -14,3 +14,23 @@ export function replaceOperators(raw) {
   raw = raw.replace(/÷/g, '/');
   return raw;
 }
+
+export function hasBadDecimalPoint(raw) {
+  return /(\.\.)|(\.[0-9]+\.)|([-+/*]+\.[-+/*]+)/.test(raw);
+}
+
+export function hasUnbalancedOperator(raw) {
+  return /^[+/*]|[+/*]{2,}|--|[-+/*]$/.test(raw);
+}
+
+export function hasMisplacedParentheses(raw) {
+  let numOpening = raw.match(/\(/g) ? raw.match(/\(/g).length : 0;
+  let numClosing = raw.match(/\)/g) ? raw.match(/\)/g).length : 0;
+  return /[0-9]+\(|\)[0-9]+|\([-+/*]+|[-+/*]+\)|[-+/*]+\($/.test(raw) || numOpening < numClosing;
+}
+
+export function hasOpenParentheses(raw) {
+  let numOpening = raw.match(/\(/g) ? raw.match(/\(/g).length : 0;
+  let numClosing = raw.match(/\)/g) ? raw.match(/\)/g).length : 0;
+  return numOpening > numClosing;
+}

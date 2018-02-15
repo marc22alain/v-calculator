@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper';
-import { replaceOperators } from './parser'
+import { replaceOperators, hasBadDecimalPoint, hasUnbalancedOperator, hasMisplacedParentheses, hasOpenParentheses } from './parser'
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formula: '2+2',
-      validationClass: 'valid',
+      formula: '',
+      validationClass: 'valid',   // ['valid', 'invalid', 'no-closing-parens']
       result: '0.0'
     };
   }
 
   keyClickHandler(char) {
     if (char === "=") {
-      let formula = this.state.formula;
-      let newResult = processFormula(formula)
+      let newResult;
+      if (this.state.validationClass === 'valid') {
+        newResult = processFormula(this.state.formula)
+      } else {
+        newResult = 'Formula is invalid';
+      }
       let newState = update(this.state, {result: {$set: newResult}});
       this.setState(newState);
     } else {
-      let formula = this.state.formula;
-      let newState = update(this.state, {formula: {$set: formula + char}});
+      let formula = this.state.formula + char;
+      let newValidity = checkValidity(formula);
+      let newState = update(this.state, {formula: {$set: formula}, validationClass: {$set: newValidity}});
       this.setState(newState);
     }
   }
@@ -34,7 +39,6 @@ class App extends Component {
         onClick={() => this.keyClickHandler(char)}
       />
     );
-
   }
 
   render() {
@@ -103,6 +107,18 @@ function processFormula(raw) {
   raw = replaceOperators(raw);
   // eslint-disable-next-line no-eval
   return eval(raw).toString();
+}
+
+function checkValidity(raw) {
+  // First replace the pretty operators for functional ones.
+  raw = replaceOperators(raw);
+  if (hasBadDecimalPoint(raw) || hasUnbalancedOperator(raw) || hasMisplacedParentheses(raw)) {
+    return 'invalid';
+  }
+  if (hasOpenParentheses(raw)) {
+    return 'no-closing-parens';
+  }
+  return 'valid';
 }
 
 export default App;

@@ -6,6 +6,10 @@
   border: solid 2px red;
 }
 
+.no-closing-parens {
+  border: solid 2px yellow;
+}
+
 .result {
   border: solid 2px green;
 }
