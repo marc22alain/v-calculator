@@ -23,7 +23,12 @@ class App extends Component {
       }
       newState = update(this.state, {result: {$set: newResult}});
     } else {
-      if (char === "C") {
+      if (char === "\u2421") {
+        formula = this.state.formula;
+        formula = formula.slice(0 ,formula.length - 1);
+        newResult = "0.0";
+        newValidity = checkValidity(formula);
+      } else if (char === "C") {
         formula = '';
         newResult = "0.0";
         newValidity = 'valid';
@@ -62,29 +67,31 @@ class App extends Component {
           />
         </div>
         <div className="keypad">
-          {this.renderKey("C", "key operator-key single-width")}
-          {this.renderKey("(", "key operator-key single-width")}
-          {this.renderKey(")", "key operator-key single-width")}
-          {this.renderKey("÷", "key operator-key single-width")}
+          {this.renderKey("C", "key operator-key narrow-width")}
+          {this.renderKey("\u2421", "key operator-key narrow-width")}
+
+          {this.renderKey("(", "key operator-key narrow-width")}
+          {this.renderKey(")", "key operator-key narrow-width")}
+          {this.renderKey("÷", "key operator-key narrow-width")}
 
           {this.renderKey("7", "key number-key single-width")}
           {this.renderKey("8", "key number-key single-width")}
           {this.renderKey("9", "key number-key single-width")}
-          {this.renderKey("x", "key operator-key single-width")}
+          {this.renderKey("x", "key operator-key narrow-width")}
 
           {this.renderKey("4", "key number-key single-width")}
           {this.renderKey("5", "key number-key single-width")}
           {this.renderKey("6", "key number-key single-width")}
-          {this.renderKey("-", "key operator-key single-width")}
+          {this.renderKey("-", "key operator-key narrow-width")}
 
           {this.renderKey("1", "key number-key single-width")}
           {this.renderKey("2", "key number-key single-width")}
           {this.renderKey("3", "key number-key single-width")}
-          {this.renderKey("+", "key operator-key single-width")}
+          {this.renderKey("+", "key operator-key narrow-width")}
 
           {this.renderKey("0", "key number-key double-width")}
           {this.renderKey(".", "key number-key single-width")}
-          {this.renderKey("=", "key operator-key single-width")}
+          {this.renderKey("=", "key operator-key narrow-width")}
         </div>
       </div>
     );

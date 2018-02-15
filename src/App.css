@@ -19,7 +19,7 @@
 
 .key {
   font-size: 24px;
-  height: 90px;
+  height: 80px;
 }
 
 .number-key {
@@ -30,14 +30,17 @@
   background-color: rgb(240, 146, 64);
 }
 
+.narrow-width {
+  width: 60px;
+}
 .single-width {
-  width: 90px;
+  width: 80px;
 }
 
 .double-width {
-  width: 180px;
+  width: 160px;
 }
 
 .keypad {
-  max-width: 400px;
+  max-width: 300px;
 }
