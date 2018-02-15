@@ -14,21 +14,27 @@ class App extends Component {
   }
 
   keyClickHandler(char) {
+    let newResult, formula, newValidity, newState;
     if (char === "=") {
-      let newResult;
       if (this.state.validationClass === 'valid') {
-        newResult = processFormula(this.state.formula)
+        newResult = processFormula(this.state.formula);
       } else {
         newResult = 'Formula is invalid';
       }
-      let newState = update(this.state, {result: {$set: newResult}});
-      this.setState(newState);
+      newState = update(this.state, {result: {$set: newResult}});
     } else {
-      let formula = this.state.formula + char;
-      let newValidity = checkValidity(formula);
-      let newState = update(this.state, {formula: {$set: formula}, validationClass: {$set: newValidity}});
-      this.setState(newState);
+      if (char === "C") {
+        formula = '';
+        newResult = "0.0";
+        newValidity = 'valid';
+      } else {
+        formula = this.state.formula + char;
+        newResult = "0.0";
+        newValidity = checkValidity(formula);
+      }
+      newState = update(this.state, {formula: {$set: formula}, result: {$set: newResult}, validationClass: {$set: newValidity}});
     }
+    this.setState(newState);
   }
 
   renderKey(char, classNames) {
