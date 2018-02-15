@@ -1,0 +1,39 @@
+.valid {
+  border: solid 2px blue;
+}
+
+.invalid {
+  border: solid 2px red;
+}
+
+.result {
+  border: solid 2px green;
+}
+
+.keypad {
+}
+
+.key {
+  font-size: 24px;
+  height: 90px;
+}
+
+.number-key {
+  background-color: rgb(224, 224, 224);
+}
+
+.operator-key {
+  background-color: rgb(240, 146, 64);
+}
+
+.single-width {
+  width: 90px;
+}
+
+.double-width {
+  width: 180px;
+}
+
+.keypad {
+  max-width: 400px;
+}
