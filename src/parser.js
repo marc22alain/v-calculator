@@ -1,4 +1,10 @@
 /*
+  The strategy for formula input string validation is NOT to have one complex REGEX to verify it.
+  Rather, it is to check that each formula symbol type is used corectly.
+  Not only is this easier to develop and test, it is also more easily extensible to new formula symbol types.
+*/
+
+/*
   Replaces the nice-looking characters for functional operators:
   'x' => '*'
   '÷' => '/'

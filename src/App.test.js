@@ -16,11 +16,11 @@ it('resets all of the app\'s state when the Clear button is pressed', () => {
   app.setState({
     formula: '2+2(',
     validationClass: 'invalid',
-    result: 'Formula is invalid'
+    result: 'E'
   });
   expect(app.state.formula).toBe('2+2(');
   expect(app.state.validationClass).toBe('invalid');
-  expect(app.state.result).toBe('Formula is invalid');
+  expect(app.state.result).toBe('E');
 
   app.keyClickHandler('C');
 
@@ -35,7 +35,7 @@ it('deletes the last character and re-evaluates formula validity when the Delete
   app.setState({
     formula: '2+2(',
     validationClass: 'invalid',
-    result: 'Formula is invalid'
+    result: 'E'
   });
 
   app.keyClickHandler('\u2421');
@@ -118,7 +118,7 @@ it('correctly calculates a result when it is valid, and the equals key is presse
   expect(app.state.result).toBe('22');
 });
 
-it('indicates that the formula is invalid when it is not valid, and the equals key is pressed, leaving the formula and status alone', () => {
+it('indicates \'E\' when the formula is not valid, and the equals key is pressed, leaving the formula and status alone', () => {
   let app = ReactTestUtils.renderIntoDocument(<App />);
   let state = {
     formula: '45/(5+4)+17)',
@@ -131,7 +131,7 @@ it('indicates that the formula is invalid when it is not valid, and the equals k
 
   expect(app.state.formula).toBe(state.formula);
   expect(app.state.validationClass).toBe(state.validationClass);
-  expect(app.state.result).toBe('Formula is invalid');
+  expect(app.state.result).toBe('E');
 });
 
 it('doesn\'t crash when the equals key is pressed and the formula is blank', () => {

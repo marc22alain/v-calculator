@@ -64,6 +64,7 @@ it('finds invalid uses of parentheses', () => {
   expect(hasMisplacedParentheses('(+1)')).toBe(true);
   expect(hasMisplacedParentheses('(1+)')).toBe(true);
   expect(hasMisplacedParentheses('1)')).toBe(true);
+  expect(hasMisplacedParentheses('(1+1))')).toBe(true);
   expect(hasMisplacedParentheses('(8+9)*(')).toBe(true);
   expect(hasMisplacedParentheses('5.(')).toBe(true);
   expect(hasMisplacedParentheses('(5).5')).toBe(true);
