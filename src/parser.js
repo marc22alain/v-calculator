@@ -16,7 +16,7 @@ export function replaceOperators(raw) {
 }
 
 export function hasBadDecimalPoint(raw) {
-  return /(\.\.)|(\.[0-9]+\.)|([-+/*]+\.[-+/*]+)/.test(raw);
+  return /\.\.|\.[0-9]+\.|[-+/*]+\.[-+/*]+|[^0-9]+\.$/.test(raw);
 }
 
 export function hasUnbalancedOperator(raw) {
@@ -26,7 +26,7 @@ export function hasUnbalancedOperator(raw) {
 export function hasMisplacedParentheses(raw) {
   let numOpening = raw.match(/\(/g) ? raw.match(/\(/g).length : 0;
   let numClosing = raw.match(/\)/g) ? raw.match(/\)/g).length : 0;
-  return /[0-9]+\(|\)[0-9]+|\([-+/*]+|[-+/*]+\)|[-+/*]+\($/.test(raw) || numOpening < numClosing;
+  return /[0-9.)]+\(|\)[0-9.]+|\([)-+/*]+|[-+/*]+\)|[-+/*]+\($/.test(raw) || numOpening < numClosing;
 }
 
 export function hasOpenParentheses(raw) {

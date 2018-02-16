@@ -1,46 +1,123 @@
+.App {
+  max-width: 330px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px;
+  background-color: #99b;
+  box-shadow: 5px 5px 25px #aaa;
+  font-size: 24px;
+}
+
 .valid {
-  border: solid 2px blue;
+  color: rgb(10, 10, 100);
+  border: solid 2px rgb(100, 130, 220);
+  box-shadow: 0px 0px 10px #88f;
+  background-color: rgb(230, 235, 255);
 }
 
 .invalid {
-  border: solid 2px red;
+  color: rgb(100, 10, 10);
+  border: solid 2px rgb(200, 0, 0);
+  box-shadow: 0px 0px 10px #f00;
+  background-color: #fdd;
 }
 
 .no-closing-parens {
+  color: rgb(10, 10, 100);
   border: solid 2px yellow;
+  box-shadow: 0px 0px 10px rgb(254, 248, 84);
+  background-color: rgb(255, 252, 200);
 }
 
-.result {
+.complete {
   border: solid 2px green;
+  box-shadow: 0px 0px 10px rgb(0, 255, 150);
+  background-color: #efe;
 }
 
-.keypad {
+.in-progress {
+  border: solid 2px #669;
+  box-shadow: 0px 0px 10px #669;
+  background-color: #bbd;
+  color: #557;
+}
+
+.text-box {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.formula-box {
+  letter-spacing: 0.1em;
+}
+
+.result-box {
+  text-align: right;
+  font-size: 30px;
 }
 
 .key {
   font-size: 24px;
-  height: 80px;
+  height: 84px;
 }
 
 .number-key {
-  background-color: rgb(224, 224, 224);
+  color: rgb(10, 10, 100);
+  background-color: rgb(195, 195, 230);
 }
 
 .operator-key {
-  background-color: rgb(240, 146, 64);
+  color: rgb(10, 10, 100);
+  background-color: rgb(240, 100, 100);
+}
+
+.utility-key {
+  color: rgb(60, 60, 30);
+  background-color: rgb(180, 180, 160);
 }
 
 .narrow-width {
-  width: 60px;
+  width: 63px;
 }
 .single-width {
-  width: 80px;
+  width: 84px;
 }
 
 .double-width {
-  width: 160px;
+  width: 168px;
 }
 
 .keypad {
-  max-width: 300px;
+  max-width: 315px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+
+@media screen and (max-width : 639px) {
+  .App {
+    max-width: 300px;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+  }
+
+  .key {
+    height: 60px;
+  }
+
+  .narrow-width {
+    width: 60px;
+  }
+  .single-width {
+    width: 80px;
+  }
+
+  .double-width {
+    width: 160px;
+  }
+
+}
+

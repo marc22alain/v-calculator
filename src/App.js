@@ -9,35 +9,47 @@ class App extends Component {
     this.state = {
       formula: '',
       validationClass: 'valid',   // ['valid', 'invalid', 'no-closing-parens']
-      result: '0.0'
+      result: '0.0',
+      resultClass: 'in-progress',   // ['complete', 'invalid', 'in-progress']
     };
   }
 
   keyClickHandler(char) {
-    let newResult, formula, newValidity, newState;
+    let newResult, formula, newValidity, newState, newResultClass;
     if (char === "=") {
-      if (this.state.validationClass === 'valid') {
+      if (this.state.formula === '') {
+        return;
+      } else if (this.state.validationClass === 'valid') {
         newResult = processFormula(this.state.formula);
+        newResultClass = 'complete';
       } else {
         newResult = 'Formula is invalid';
+        newResultClass = 'invalid';
       }
-      newState = update(this.state, {result: {$set: newResult}});
+      newState = update(this.state, {result: {$set: newResult}, resultClass: {$set: newResultClass}});
     } else {
       if (char === "\u2421") {
         formula = this.state.formula;
         formula = formula.slice(0 ,formula.length - 1);
         newResult = "0.0";
+        newResultClass = 'in-progress';
         newValidity = checkValidity(formula);
       } else if (char === "C") {
         formula = '';
         newResult = "0.0";
+        newResultClass = 'in-progress';
         newValidity = 'valid';
       } else {
         formula = this.state.formula + char;
         newResult = "0.0";
+        newResultClass = 'in-progress';
         newValidity = checkValidity(formula);
       }
-      newState = update(this.state, {formula: {$set: formula}, result: {$set: newResult}, validationClass: {$set: newValidity}});
+      newState = update(this.state, { formula: {$set: formula},
+                                      result: {$set: newResult},
+                                      validationClass: {$set: newValidity},
+                                      resultClass: {$set: newResultClass}
+                                    });
     }
     this.setState(newState);
   }
@@ -58,17 +70,18 @@ class App extends Component {
         <div>
           <CalculatorInput
             formula={this.state.formula}
-            class={this.state.validationClass}
+            class={this.state.validationClass + " formula-box text-box"}
           />
         </div>
         <div>
           <CalculatorOutput
             result={this.state.result}
+            class={this.state.resultClass + " result-box text-box"}
           />
         </div>
         <div className="keypad">
-          {this.renderKey("C", "key operator-key narrow-width")}
-          {this.renderKey("\u2421", "key operator-key narrow-width")}
+          {this.renderKey("C", "key utility-key narrow-width")}
+          {this.renderKey("\u2421", "key utility-key narrow-width")}
 
           {this.renderKey("(", "key operator-key narrow-width")}
           {this.renderKey(")", "key operator-key narrow-width")}
@@ -106,7 +119,7 @@ function CalculatorInput(props) {
 
 function CalculatorOutput(props) {
   return (
-      <p className="result">{props.result}</p>
+      <p className={props.class}>{props.result}</p>
     );
 }
 

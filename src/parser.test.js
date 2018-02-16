@@ -17,6 +17,7 @@ it('finds invalid uses of decimal points', () => {
   expect(hasBadDecimalPoint('1+5..0')).toBe(true);
   expect(hasBadDecimalPoint('1+5.5.5')).toBe(true);
   expect(hasBadDecimalPoint('1+.+5')).toBe(true);
+  expect(hasBadDecimalPoint('1+5+.')).toBe(true);
 });
 
 it('finds invalid uses of operators', () => {
@@ -64,6 +65,10 @@ it('finds invalid uses of parentheses', () => {
   expect(hasMisplacedParentheses('(1+)')).toBe(true);
   expect(hasMisplacedParentheses('1)')).toBe(true);
   expect(hasMisplacedParentheses('(8+9)*(')).toBe(true);
+  expect(hasMisplacedParentheses('5.(')).toBe(true);
+  expect(hasMisplacedParentheses('(5).5')).toBe(true);
+  expect(hasMisplacedParentheses('(5).+')).toBe(true);
+  expect(hasMisplacedParentheses('5+()')).toBe(true);
 });
 
 it('finds when closing parentheses are required', () => {

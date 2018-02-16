@@ -133,3 +133,16 @@ it('indicates that the formula is invalid when it is not valid, and the equals k
   expect(app.state.validationClass).toBe(state.validationClass);
   expect(app.state.result).toBe('Formula is invalid');
 });
+
+it('doesn\'t crash when the equals key is pressed and the formula is blank', () => {
+  let app = ReactTestUtils.renderIntoDocument(<App />);
+  app.setState({
+    formula: '',
+    validationClass: 'valid',
+    result: '0.0'
+  });
+
+  app.keyClickHandler('=');
+
+  expect(app.state.result).toBe('0.0');
+});
